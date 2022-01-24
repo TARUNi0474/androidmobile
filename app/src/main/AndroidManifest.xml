@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNavActivity">
-        <activity android:name=".UserSignup"></activity>
+        <activity android:name=".UserSignup" />
         <activity android:name=".UserLogin" />
         <activity android:name=".HomePage" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +24,7 @@
         <activity
             android:name=".HomePageNavActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MyNavActivity.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.MyNavActivity.NoActionBar" />
     </application>
 
 </manifest>
