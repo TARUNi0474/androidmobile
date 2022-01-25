@@ -1,5 +1,6 @@
 package com.example.mynavactivity.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mynavactivity.Productdetails;
+import com.example.mynavactivity.ProductsActivity;
 import com.example.mynavactivity.R;
 import com.example.mynavactivity.homecategory.ApiProductAdapter;
 import com.example.mynavactivity.homecategory.model.ApiProduct;
@@ -31,16 +34,15 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
         return new HomeFragment();
     }
 
-    // ===== Horizontal Category ========= //
     private TextView categoryLayoutTitle;
     private RecyclerView categoryRecyclerView;
 
     @Override
     public void onClick(ApiProduct apiProduct) {
-       // Log.d("yoooo", apiProduct.getProductTitle()+ " was clicked");
-        Toast.makeText(getActivity(), "Click!", Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getActivity(), "Click event for " + apiProduct.getProductTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), Productdetails.class);
+        startActivity(intent);
     }
+
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -48,12 +50,10 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
         return v;
     }
 
-
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        List<ApiProduct> apiProductArrayList = new ArrayList<>();
         ImageButton imgCat1 = getView().findViewById(R.id.iv_cat1);
         ImageButton imgCat2 = getView().findViewById(R.id.iv_cat2);
         ImageButton imgCat3 = getView().findViewById(R.id.iv_cat3);
@@ -75,7 +75,26 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
                 .load("https://static.toiimg.com/thumb/msid-84267495,width-1200,height-900,resizemode-4/.jpg")
                 .into(imgCat5);
 
-        List<ApiProduct> apiProductArrayList = new ArrayList<>();
+        imgCat1.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProductsActivity.class);
+            startActivity(intent);
+        });
+        imgCat2.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProductsActivity.class);
+            startActivity(intent);
+        });
+        imgCat3.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProductsActivity.class);
+            startActivity(intent);
+        });
+        imgCat4.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProductsActivity.class);
+            startActivity(intent);
+        });
+        imgCat5.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProductsActivity.class);
+            startActivity(intent);
+        });
 
         generateUserData(apiProductArrayList);
         categoryLayoutTitle = getView().findViewById(R.id.tv_cat_header);
@@ -90,12 +109,14 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
         recyclerView.setAdapter(apiProductAdapter);
         apiProductAdapter.notifyDataSetChanged();
     }
+
     private void generateUserData(List<ApiProduct> userDataList) {
-        userDataList.add(new ApiProduct(R.drawable.ic_logout , "Lenovo Chromebook" , "₹20,990.00" ));
-        userDataList.add(new ApiProduct(R.drawable.ic_menu_camera , "Lenovo Chromebook" , "₹20,990.00" ));
-        userDataList.add(new ApiProduct(R.drawable.ic_order , "Lenovo Chromebook" , "₹20,990.00" ));
-        userDataList.add(new ApiProduct(R.drawable.ic_cart , "Lenovo Chromebook" , "₹20,990.00" ));
-        userDataList.add(new ApiProduct(R.drawable.ic_menu_gallery , "Lenovo Chromebook" , "₹20,990.00" ));
+        userDataList.add(new ApiProduct(R.drawable.ic_logout , "Lenovo Chromebook" , 209989 ));
+        userDataList.add(new ApiProduct(R.drawable.ic_menu_camera , "Lenovo Chromebook" , 20990 ));
+        userDataList.add(new ApiProduct(R.drawable.ic_order , "Lenovo Chromebook" , 20920 ));
+        userDataList.add(new ApiProduct(R.drawable.ic_cart , "Lenovo Chromebook" , 20990 ));
+        userDataList.add(new ApiProduct(R.drawable.ic_menu_gallery , "Lenovo Chromebook" , 20988 ));
+
     }
 
 }

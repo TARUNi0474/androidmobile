@@ -36,8 +36,8 @@ public class ApiProductAdapter extends RecyclerView.Adapter<ApiProductAdapter.Vi
     public void onBindViewHolder(@NonNull ApiProductAdapter.ViewHolder holder, int position) {
         ApiProduct product =  apiProductList.get(position);
         holder.productImage.setImageResource(product.getProductImage());
-        holder.productTitle.setText(product.getProductTitle());
-        holder.productPrice.setText(product.getProductPrice());
+        holder.productName.setText(product.getProductName());
+        holder.productPrice.setText(product.getProductPrice() +"");
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,16 +57,14 @@ public class ApiProductAdapter extends RecyclerView.Adapter<ApiProductAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView productImage;
-        private final TextView productTitle;
+        private final TextView productName;
         private final TextView productPrice;
         private final View rootView;
-
-
         public ViewHolder(View itemView) {
             super(itemView);
             rootView = itemView;
             productImage = itemView.findViewById(R.id.bt_cat_item_image);
-            productTitle = itemView.findViewById(R.id.tv_item_name);
+            productName = itemView.findViewById(R.id.tv_item_name);
             productPrice = itemView.findViewById(R.id.tv_item_price);
         }
     }

@@ -15,4 +15,12 @@
     <string name="menu_logout">Logout</string>
     <string name="menu_support">Support</string>
 
+    <string-array name="merchant">
+        <item>Merchant 1</item>
+        <item>Merchant 2</item>
+        <item>Merchant 3</item>
+        <item>Merchant 4</item>
+        <item>Merchant 5</item>
+    </string-array>
+
 </resources>

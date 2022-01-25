@@ -2,12 +2,20 @@ package com.example.mynavactivity.homecategory.model;
 
 public class ApiProduct {
     private int productImage;
-    private String productTitle;
-    private String productPrice;
+    private String productName;
+    private int productPrice;
+    private String productDescription;
 
-    public ApiProduct(int productImage, String productTitle, String productPrice) {
+    public ApiProduct(int productImage, String productName, int productPrice, String productDescription) {
         this.productImage = productImage;
-        this.productTitle = productTitle;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productDescription = productDescription;
+    }
+
+    public ApiProduct(int productImage, String productName, int productPrice) {
+        this.productImage = productImage;
+        this.productName = productName;
         this.productPrice = productPrice;
     }
 
@@ -19,19 +27,27 @@ public class ApiProduct {
         this.productImage = productImage;
     }
 
-    public String getProductTitle() {
-        return productTitle;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProductTitle(String productTitle) {
-        this.productTitle = productTitle;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getProductPrice() {
+    public int getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(int productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 }

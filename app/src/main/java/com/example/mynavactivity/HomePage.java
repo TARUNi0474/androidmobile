@@ -25,11 +25,6 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.user_auth", Context.MODE_PRIVATE);
-
-//        Bundle frag_bundle = getIntent().getExtras();
-//        if(frag_bundle != null){
-//            frag_bundle.getString();
-//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
