@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynavactivity.R;
-import com.example.mynavactivity.homecategory.model.ApiOrder;
+import com.example.mynavactivity.retrofit.model.ApiOrder;
 import java.util.List;
 
 public class ApiOrderAdapter extends RecyclerView.Adapter<ApiOrderAdapter.ViewHolder>{

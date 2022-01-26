@@ -1,4 +1,4 @@
-package com.example.mynavactivity.dto;
+package com.example.mynavactivity.retrofit.dto;
 
 import java.util.Date;
 

@@ -9,8 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mynavactivity.R;
-import com.example.mynavactivity.homecategory.model.ApiProduct;
+import com.example.mynavactivity.retrofit.model.ApiProduct;
 
 import java.util.List;
 
@@ -35,9 +36,9 @@ public class ApiProductAdapter extends RecyclerView.Adapter<ApiProductAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ApiProductAdapter.ViewHolder holder, int position) {
         ApiProduct product =  apiProductList.get(position);
-        holder.productImage.setImageResource(product.getProductImage());
+        Glide.with(holder.productImage.getContext()).load(product.getProductImage()).placeholder(R.drawable.lap_demp).into(holder.productImage);
         holder.productName.setText(product.getProductName());
-        holder.productPrice.setText(product.getProductPrice() +"");
+        holder.productPrice.setText(product.getPrice() +"");
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

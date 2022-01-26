@@ -9,15 +9,17 @@
 
     <ImageButton
         android:id="@+id/bt_cat_item_image"
-        android:layout_width="200dp"
-        android:layout_height="75dp"
+        android:layout_width="202dp"
+        android:layout_height="101dp"
+        android:scaleType="centerCrop"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:background="#0000"
+        android:src="@drawable/lap_demp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/lap_demp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView

@@ -1,4 +1,4 @@
-package com.example.mynavactivity.homecategory.model;
+package com.example.mynavactivity.retrofit.model;
 
 
 public class ApiOrder{

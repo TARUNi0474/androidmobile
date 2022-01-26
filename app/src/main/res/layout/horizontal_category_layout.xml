@@ -13,7 +13,7 @@
         android:id="@+id/tv_cat_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category 1"
+        android:text="BEST PRODUCTS"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
