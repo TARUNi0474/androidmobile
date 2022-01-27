@@ -46,6 +46,10 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
     @Override
     public void onClick(ApiProduct apiProduct) {
         Intent intent = new Intent(getActivity(), Productdetails.class);
+        intent.putExtra("prodName" , apiProduct.getProductName());
+        intent.putExtra("prodPrice" , ((Double) apiProduct.getPrice()));
+        intent.putExtra("prodDescription" , apiProduct.getProductDescription());
+        intent.putExtra("prodImage" , apiProduct.getProductImage());
         startActivity(intent);
     }
 
@@ -112,12 +116,12 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
     }
 
     private void generateUserData(List<ApiProduct> userDataList) {
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
     }
 
     public void makeApi(){
@@ -133,9 +137,10 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
                     String productImage = response.body().get(i).getProductImage();
                     String productName = response.body().get(i).getProductName();
                     Double price = response.body().get(i).getPrice();
+                    String productDescription = response.body().get(i).getProductDescription();
                     System.out.println("Price "+response.body().get(i).getPrice() + " Name " + response.body().get(i).getProductName());
 
-                    apiProductArrayList.add(new ApiProduct(productImage,productName,price));
+                    apiProductArrayList.add(new ApiProduct(productImage,productName,price,productDescription));
                 }
 
                // categoryLayoutTitle.setText("BEST PRODUCTS FROM DB!!!");

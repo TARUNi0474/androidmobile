@@ -28,6 +28,10 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
     @Override
     public void onClick(ApiProduct apiProduct) {
         Intent intent = new Intent(ProductsActivity.this, Productdetails.class);
+        intent.putExtra("prodName" , apiProduct.getProductName());
+        intent.putExtra("prodPrice" , ((Double) apiProduct.getPrice()));
+        intent.putExtra("prodDescription" , apiProduct.getProductDescription());
+        intent.putExtra("prodImage" , apiProduct.getProductImage());
         startActivity(intent);
     }
 
@@ -35,16 +39,12 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
-        ImageButton backBtn = findViewById(R.id.pd_bt_back);
-        backBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(ProductsActivity.this, HomePageNavActivity.class);
+        ImageButton cartBtn = findViewById(R.id.btn_cart);
+        cartBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ProductsActivity.this, CartActivity.class);
             startActivity(intent);
         });
-//        ImageButton backBtn = findViewById(R.id.bt_back);
-//        backBtn.setOnClickListener(v -> {
-//            Intent intent = new Intent(ProductsActivity.this, HomePageNavActivity.class);
-//            startActivity(intent);
-//        });
+
         //localRecyclerView();
         makeApi();
     }
@@ -68,22 +68,14 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
             @Override
             public void onResponse(Call<List<ApiProduct>> call, Response<List<ApiProduct>> response) {
                 List<ApiProduct> apiProductArrayList = new ArrayList<>();
-
                 for(int i = 0 ; i<response.body().size();i++){
                     String productImage = response.body().get(i).getProductImage();
                     String productName = response.body().get(i).getProductName();
                     Double price = response.body().get(i).getPrice();
+                    String productDescription = response.body().get(i).getProductDescription();
                     System.out.println("Price PA "+response.body().get(i).getPrice() + " Name PA " + response.body().get(i).getProductName());
-                    apiProductArrayList.add(new ApiProduct(productImage,productName,price));
+                    apiProductArrayList.add(new ApiProduct(productImage,productName,price,productDescription));
                 }
-
-                // categoryLayoutTitle.setText("BEST PRODUCTS FROM DB!!!");
-//                categoryRecyclerView = getView().findViewById(R.id.rv_category);
-//                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//                linearLayoutManager.setOrientation(linearLayoutManager.HORIZONTAL);
-//                categoryRecyclerView.setLayoutManager(linearLayoutManager);
-//                categoryRecyclerView.setAdapter(new ApiProductAdapter(response.body(), HomeFragment.this));
-
                 RecyclerView recyclerView = findViewById(R.id.recyclerCatView);
                 ApiProductAdapter apiProductAdapter = new ApiProductAdapter(apiProductArrayList , ProductsActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(ProductsActivity.this));
@@ -99,16 +91,16 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
 
 
     private void generateUserData(List<ApiProduct> userDataList) {
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
+//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
+//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
 
     }
 }

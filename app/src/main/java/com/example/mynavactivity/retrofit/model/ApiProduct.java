@@ -6,18 +6,18 @@ public class ApiProduct {
     private double price;
     private String productDescription;
 
-//    public ApiProduct(String productImage, String productName, double productPrice, String productDescription) {
-//        this.productImage = productImage;
-//        this.productName = productName;
-//        this.productPrice = productPrice;
-//        this.productDescription = productDescription;
-//    }
-
-    public ApiProduct(String productImage, String productName, double price) {
+    public ApiProduct(String productImage, String productName, double price, String productDescription) {
         this.productImage = productImage;
         this.productName = productName;
         this.price = price;
+        this.productDescription = productDescription;
     }
+
+//    public ApiProduct(String productImage, String productName, double price) {
+//        this.productImage = productImage;
+//        this.productName = productName;
+//        this.price = price;
+//    }
 
     public String getProductImage() {
         return productImage;

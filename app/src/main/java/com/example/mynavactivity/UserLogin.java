@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.mynavactivity.retrofit.dto.UserDto;
+import com.example.mynavactivity.retrofit.network.iPostUserApi;
+import com.example.mynavactivity.retrofit.networkmanager.RetrofitUserBuilder;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,10 +23,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class UserLogin extends AppCompatActivity {
 
     boolean isAllFieldsChecked = false;
+    Button buttonLogin,buttonSignUp;
+    EditText etEmail,etPassword;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 100;
 
@@ -56,45 +69,33 @@ public class UserLogin extends AppCompatActivity {
         });
 
         //======APP LOGIC============//
-        Button buttonLogin = findViewById(R.id.bt_login);
-        Button buttonSignUp = findViewById(R.id.bt_signup);
+        buttonLogin = findViewById(R.id.bt_login);
+        buttonSignUp = findViewById(R.id.bt_signup);
 
         // register all the EditText fields with their IDs.
-        EditText etUserName = findViewById(R.id.tv_username);
-        EditText etPassword = findViewById(R.id.tv_pass);
+        etEmail = findViewById(R.id.tv_email);
+        etPassword = findViewById(R.id.tv_pass);
         //SharedPreferences sharedPreferences = getSharedPreferences("com.example.mynavactivity", Context.MODE_PRIVATE);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // store the returned value of the dedicated function which checks
                 // whether the entered data is valid or if any fields are left blank.
                 isAllFieldsChecked = CheckAllFields();
-
                 // the boolean variable turns to be true then
                 // only the user must be proceed to the activity2
                 if (isAllFieldsChecked) {
-                    Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
-                    startActivity(i);
-                        finish();
-//                    String temp = sharedPreferences.getString(etUserName.getText().toString(), "Default");
-//                    if (!(temp.equals(etPassword.getText().toString()))) {
-//                        etPassword.setError("Invalid Password!");
-//                    } else {
-//                        Intent i = new Intent(UserLogin.this, HomePage.class);
-//                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        editor.putBoolean("Login", true);
-//                        editor.apply();
-//                        startActivity(i);
-//                        finish();
-//                    }
+                    makeApi(createLoginRequest());
+//                    Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
+//                    startActivity(i);
+//                    finish();
                 }
             }
 
             private boolean CheckAllFields() {
-                if (etUserName.length() == 0) {
-                    etUserName.setError("This field is required");
+                if (etEmail.length() == 0) {
+                    etEmail.setError("This field is required");
                     return false;
                 }
 
@@ -118,13 +119,47 @@ public class UserLogin extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
     }
+
+    public UserDto createLoginRequest(){
+        UserDto userDto = new UserDto();
+        userDto.setEmail(etEmail.getText().toString());
+        userDto.setPassword(etPassword.getText().toString());
+        return userDto;
+    }
+
+    public void makeApi(UserDto userDto){
+        Retrofit retrofit = RetrofitUserBuilder.getInstance();
+        iPostUserApi iPostApi = retrofit.create(iPostUserApi.class);
+        Call<JsonElement> responses = iPostApi.validation(userDto);
+        responses.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                JsonObject jsonObject = response.body().getAsJsonObject();
+                int id = Integer.parseInt(String.valueOf(jsonObject.get("Status")));
+                if(id==500)
+                    Toast.makeText(UserLogin.this,"Password is incorrect",Toast.LENGTH_SHORT).show();
+                else if(id==400)
+                    Toast.makeText(UserLogin.this,"Email is incorrect",Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(UserLogin.this,"Successfully Logged In!",Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                Toast.makeText(UserLogin.this,"Failed To Register " + t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void signIn(){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

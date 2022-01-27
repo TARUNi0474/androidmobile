@@ -13,5 +13,8 @@ public interface iPostProductApi {
     @GET("/products/getByCId/{id}")
     Call<List<ApiProduct>> getByCategoryId(@Path("id") long id);
 
+    @GET("/products/getByPID/cid/{pid}")
+    Call<List<ApiProduct>> getByProductId(@Path("id") long pid);
+
 
 }

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,14 +43,20 @@ public class HomePageNavActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        ImageButton cartBtn = findViewById(R.id.btn_cart);
+        cartBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePageNavActivity.this, CartActivity.class);
+            startActivity(intent);
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_page_nav, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.home_page_nav, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -68,12 +76,5 @@ public class HomePageNavActivity extends AppCompatActivity {
             return false;
 
         }
-        // Handle item selection
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                Toast.makeText(getApplicationContext(), "Cart", Toast.LENGTH_SHORT).show();
-//                return true;
-//            default:
-//        }
     }
 }

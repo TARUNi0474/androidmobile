@@ -21,7 +21,7 @@
         app:titleTextColor="@color/white" />
 
     <EditText
-        android:id="@+id/tv_username"
+        android:id="@+id/tv_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="UserName"
+        android:hint="E-mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,32 +48,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_forgot"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:paddingStart="4dp"-->
-<!--        android:text="Forgot Password?"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/bt_login"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/toolbar_login"-->
-<!--        app:layout_constraintHorizontal_bias="0.053"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_pass"-->
-<!--        app:layout_constraintVertical_bias="0.0" />-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DFDEE1"
+        android:gravity="center_horizontal"
+        android:text="Horizontal Line"
+        app:layout_constraintBottom_toTopOf="@+id/tv_noacc"
+        app:layout_constraintTop_toBottomOf="@+id/bt_login"
+        app:layout_constraintVertical_bias="0.492"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/bt_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:background="#838080"
-        android:shadowColor="@color/black"
+        android:layout_width="107dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="40dp"
         android:text="Login"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_pass" />
 
@@ -81,7 +76,7 @@
         android:id="@+id/tv_noacc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:text="Do Not Have An Account Yet?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -90,11 +85,9 @@
 
     <Button
         android:id="@+id/bt_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#838080"
-        android:shadowColor="@color/black"
+        android:layout_width="107dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="32dp"
         android:text="SIGN UP"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,13 +97,12 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="107dp"
+        android:layout_height="58dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_signup"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintVertical_bias="0.357" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

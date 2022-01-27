@@ -3,14 +3,14 @@ package com.example.mynavactivity.retrofit.dto;
 import java.util.Date;
 
 public class OrderDto {
-    private int id;
-    private int productId;
+    private long id;
+    private long productId;
     private int quantity;
-    private int orderId;
+    private long orderId;
     private Date dateOfPurchase;
     private int amount;
 
-    public OrderDto(int id, int productId, int quantity, int orderId, Date dateOfPurchase, int amount) {
+    public OrderDto(long id, long productId, int quantity, long orderId, Date dateOfPurchase, int amount) {
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
@@ -19,19 +19,19 @@ public class OrderDto {
         this.amount = amount;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
@@ -43,11 +43,11 @@ public class OrderDto {
         this.quantity = quantity;
     }
 
-    public int getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
 

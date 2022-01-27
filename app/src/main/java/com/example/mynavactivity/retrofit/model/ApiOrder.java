@@ -2,21 +2,21 @@ package com.example.mynavactivity.retrofit.model;
 
 
 public class ApiOrder{
-    private int orderId;
+    private long orderId;
     private String dateOfPurchase;
-    private int amount;
+    private long amount;
 
-    public ApiOrder(int orderId, String dateOfPurchase, int amount) {
+    public ApiOrder(long orderId, String dateOfPurchase, long amount) {
         this.orderId = orderId;
         this.dateOfPurchase = dateOfPurchase;
         this.amount = amount;
     }
 
-    public int getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
 
@@ -28,11 +28,11 @@ public class ApiOrder{
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 }
