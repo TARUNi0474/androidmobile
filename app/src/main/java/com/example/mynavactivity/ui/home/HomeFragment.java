@@ -43,6 +43,7 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
     private TextView categoryLayoutTitle;
     private RecyclerView categoryRecyclerView;
 
+
     @Override
     public void onClick(ApiProduct apiProduct) {
         Intent intent = new Intent(getActivity(), Productdetails.class);
@@ -57,6 +58,7 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         //configureCategoriesImageButton();
+
         return v;
     }
 

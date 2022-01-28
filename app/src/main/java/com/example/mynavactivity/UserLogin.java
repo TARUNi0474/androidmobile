@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynavactivity.retrofit.dto.UserDto;
@@ -60,7 +61,6 @@ public class UserLogin extends AppCompatActivity {
         // Set the dimensions of the sign-in button.
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
-
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +75,8 @@ public class UserLogin extends AppCompatActivity {
         // register all the EditText fields with their IDs.
         etEmail = findViewById(R.id.tv_email);
         etPassword = findViewById(R.id.tv_pass);
+
+
         //SharedPreferences sharedPreferences = getSharedPreferences("com.example.mynavactivity", Context.MODE_PRIVATE);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +89,8 @@ public class UserLogin extends AppCompatActivity {
                 // only the user must be proceed to the activity2
                 if (isAllFieldsChecked) {
                     makeApi(createLoginRequest());
+
+                    //======PROFILE SETTING=======//
 //                    Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
 //                    startActivity(i);
 //                    finish();
@@ -144,8 +148,8 @@ public class UserLogin extends AppCompatActivity {
                 else{
                     Toast.makeText(UserLogin.this,"Successfully Logged In!",Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
+                    i.putExtra("userEmail" , userDto.getEmail());
                     startActivity(i);
-                    finish();
                 }
             }
             @Override
