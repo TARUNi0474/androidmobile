@@ -30,51 +30,26 @@
                 android:text="Button" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:id="@+id/appBarLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:theme="@style/Theme.MyNavActivity.AppBarOverlay"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/toolbar_cart"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            android:background="?attr/colorPrimary"-->
-<!--            app:popupTheme="@style/Theme.MyNavActivity.PopupOverlay"-->
-<!--            app:navigationIcon="@drawable/ic_cart">-->
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/bt_back"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:background="@color/purple_500"-->
-<!--                android:src="@drawable/ic_back"-->
-<!--                android:text="Button" />-->
-
-<!--&lt;!&ndash;            <ImageButton&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/hpn_cart_icon"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="30dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="30dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:background="@color/purple_500"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:src="@drawable/ic_cart"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_marginLeft="330dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:text="Button" />&ndash;&gt;-->
-
-
-<!--        </androidx.appcompat.widget.Toolbar>-->
-
-
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
+    <TextView
+        android:id="@+id/tv_placeholder_product"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="PRODUCT LIST"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/cart_items_recyclerview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCatView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="52dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_placeholder_product" />
 </androidx.constraintlayout.widget.ConstraintLayout>

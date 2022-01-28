@@ -1,6 +1,8 @@
 package com.example.mynavactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.example.mynavactivity.retrofit.dto.UserDto;
 import com.example.mynavactivity.retrofit.network.iPostUserApi;
 import com.example.mynavactivity.retrofit.networkmanager.RetrofitUserBuilder;
+import com.example.mynavactivity.ui.profile.ProfileFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,7 +42,10 @@ public class UserLogin extends AppCompatActivity {
     EditText etEmail,etPassword;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 100;
-
+//    SharedPreferences sharedPreferences = getSharedPreferences("com.example.mynavactivity", Context.MODE_PRIVATE);
+//SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.putString("lEmail", etEmail.getText().toString());
+//        editor.apply();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +82,6 @@ public class UserLogin extends AppCompatActivity {
         etEmail = findViewById(R.id.tv_email);
         etPassword = findViewById(R.id.tv_pass);
 
-
-        //SharedPreferences sharedPreferences = getSharedPreferences("com.example.mynavactivity", Context.MODE_PRIVATE);
-
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +92,8 @@ public class UserLogin extends AppCompatActivity {
                 // only the user must be proceed to the activity2
                 if (isAllFieldsChecked) {
                     makeApi(createLoginRequest());
+
+
 
                     //======PROFILE SETTING=======//
 //                    Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
@@ -147,9 +152,14 @@ public class UserLogin extends AppCompatActivity {
                     Toast.makeText(UserLogin.this,"Email is incorrect",Toast.LENGTH_SHORT).show();
                 else{
                     Toast.makeText(UserLogin.this,"Successfully Logged In!",Toast.LENGTH_SHORT).show();
+                    SharedPreferences sharedPref = getSharedPreferences("myKey", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("value", userDto.getEmail());
+                    editor.apply();
                     Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
                     i.putExtra("userEmail" , userDto.getEmail());
                     startActivity(i);
+                    finish();
                 }
             }
             @Override
@@ -158,6 +168,18 @@ public class UserLogin extends AppCompatActivity {
             }
         });
     }
+
+
+//    private void sendToFragment(){
+//        ProfileFragment profileFragment = new ProfileFragment();
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+//                .beginTransaction();
+//
+//        Bundle dataEmail = new Bundle();
+//        dataEmail.putString("bEmail" , etEmail.getText().toString());
+//        profileFragment.setArguments(dataEmail);
+//        fragmentTransaction.commit();
+//    }
 
     private void signIn(){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();

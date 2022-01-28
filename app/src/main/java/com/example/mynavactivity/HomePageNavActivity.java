@@ -4,17 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -24,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class HomePageNavActivity extends AppCompatActivity {
-
+    TextView proEmail;
     private AppBarConfiguration mAppBarConfiguration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +28,18 @@ public class HomePageNavActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
 //        View headerView = navigationView.getHeaderView(0);
 //        Intent i = getIntent();
 //        String pEmail = i.getExtras().getString("userEmail");
-//        TextView proName = (TextView) headerView.findViewById(R.id.profile_username);
+//        TextView proName = headerView.findViewById(R.id.profile_username);
 //        proName.setText(pEmail);
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_order, R.id.nav_support, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_order, R.id.nav_support, R.id.nav_profile)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -82,4 +79,5 @@ public class HomePageNavActivity extends AppCompatActivity {
 
         }
     }
+
 }

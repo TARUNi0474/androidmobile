@@ -12,7 +12,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_order">Order</string>
-    <string name="menu_logout">Logout</string>
     <string name="menu_support">Support</string>
 
     <string-array name="merchant">

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynavactivity.homecategory.ApiProductAdapter;
@@ -63,6 +64,9 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
         iPostProductApi iPostApi = retrofit.create(iPostProductApi.class);
         Intent i = getIntent();
         long catId = i.getExtras().getLong("category");
+        String catName = i.getExtras().getString("categoryName");
+        TextView tvCatName = findViewById(R.id.tv_placeholder_product);
+        tvCatName.setText(catName);
         Call<List<ApiProduct>> responses = iPostApi.getByCategoryId(catId);
         responses.enqueue(new Callback<List<ApiProduct>>() {
             @Override

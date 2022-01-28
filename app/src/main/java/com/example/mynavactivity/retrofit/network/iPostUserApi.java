@@ -2,6 +2,7 @@ package com.example.mynavactivity.retrofit.network;
 
 import com.example.mynavactivity.retrofit.dto.UserDto;
 import com.example.mynavactivity.retrofit.model.ApiProduct;
+import com.example.mynavactivity.retrofit.model.ApiProfile;
 import com.example.mynavactivity.retrofit.model.ApiUser;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,5 +25,7 @@ public interface iPostUserApi {
     @POST("/user/validate")
     Call<JsonElement> validation(@Body UserDto userDto);
 
-
+    @GET("/user/{email}")
+    Call<UserDto> getProfile(@Path("email") String email);
 }
+

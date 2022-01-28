@@ -57,8 +57,6 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        //configureCategoriesImageButton();
-
         return v;
     }
 
@@ -89,26 +87,31 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
         imgCat1.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ProductsActivity.class);
             intent.putExtra("category" , 1L);
+            intent.putExtra("categoryName" , "GAMING LAPTOPS");
             startActivity(intent);
         });
         imgCat2.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ProductsActivity.class);
             intent.putExtra("category" , 2L);
+            intent.putExtra("categoryName" , "CHROMEBOOKS");
             startActivity(intent);
         });
         imgCat3.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ProductsActivity.class);
             intent.putExtra("category" , 3L);
+            intent.putExtra("categoryName" , "MACBOOKS");
             startActivity(intent);
         });
         imgCat4.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ProductsActivity.class);
+            intent.putExtra("categoryName" , "NETBOOKS");
             intent.putExtra("category" , 4L);
             startActivity(intent);
         });
         imgCat5.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ProductsActivity.class);
             intent.putExtra("category" , 5L);
+            intent.putExtra("categoryName" , "2-IN-1 LAPTOPS");
             startActivity(intent);
         });
 
@@ -144,14 +147,6 @@ public class HomeFragment extends Fragment implements ApiProductAdapter.IApiProd
 
                     apiProductArrayList.add(new ApiProduct(productImage,productName,price,productDescription));
                 }
-
-               // categoryLayoutTitle.setText("BEST PRODUCTS FROM DB!!!");
-//                categoryRecyclerView = getView().findViewById(R.id.rv_category);
-//                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//                linearLayoutManager.setOrientation(linearLayoutManager.HORIZONTAL);
-//                categoryRecyclerView.setLayoutManager(linearLayoutManager);
-//                categoryRecyclerView.setAdapter(new ApiProductAdapter(response.body(), HomeFragment.this));
-
                 categoryRecyclerView = getView().findViewById(R.id.rv_category);
                 ApiProductAdapter apiProductAdapter = new ApiProductAdapter(apiProductArrayList , HomeFragment.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

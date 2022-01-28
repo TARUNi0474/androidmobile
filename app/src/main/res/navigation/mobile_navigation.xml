@@ -23,8 +23,8 @@
         android:label="@string/menu_support"
         tools:layout="@layout/fragment_support" />
     <fragment
-        android:id="@+id/nav_logout"
-        android:name="com.example.mynavactivity.ui.logout.LogoutFragment"
-        android:label="@string/menu_logout"
+        android:id="@+id/nav_profile"
+        android:name="com.example.mynavactivity.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
         tools:layout="@layout/fragment_logout" />
 </navigation>
