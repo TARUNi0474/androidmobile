@@ -1,10 +1,12 @@
 package com.example.mynavactivity.retrofit.model;
 
 public class ApiProduct {
+    private long productId;
     private String productImage;
     private String productName;
     private double price;
     private String productDescription;
+    private Long merchantId;
 
     public ApiProduct(String productImage, String productName, double price, String productDescription) {
         this.productImage = productImage;
@@ -18,6 +20,23 @@ public class ApiProduct {
 //        this.productName = productName;
 //        this.price = price;
 //    }
+
+
+    public Long getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
 
     public String getProductImage() {
         return productImage;

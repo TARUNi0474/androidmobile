@@ -4,13 +4,23 @@ public class ApiCart {
     private String productName;
     private String productImage;
     private double price;
-    private int productQuantity;
+    private Long productQuantity;
+    private Long productId;
 
-    public ApiCart(String productName, String productImage, double price, int productQuantity) {
+    public ApiCart(Long productId,String productName, String productImage, double price, Long productQuantity) {
+        this.productId = productId;
         this.productName = productName;
         this.productImage = productImage;
         this.price = price;
         this.productQuantity = productQuantity;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
@@ -37,11 +47,11 @@ public class ApiCart {
         this.price = price;
     }
 
-    public int getProductQuantity() {
+    public Long getProductQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(int productQuantity) {
+    public void setProductQuantity(Long productQuantity) {
         this.productQuantity = productQuantity;
     }
 }

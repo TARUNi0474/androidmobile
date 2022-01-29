@@ -93,12 +93,6 @@ public class UserLogin extends AppCompatActivity {
                 if (isAllFieldsChecked) {
                     makeApi(createLoginRequest());
 
-
-
-                    //======PROFILE SETTING=======//
-//                    Intent i = new Intent(UserLogin.this, HomePageNavActivity.class);
-//                    startActivity(i);
-//                    finish();
                 }
             }
 
@@ -168,18 +162,6 @@ public class UserLogin extends AppCompatActivity {
             }
         });
     }
-
-
-//    private void sendToFragment(){
-//        ProfileFragment profileFragment = new ProfileFragment();
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-//                .beginTransaction();
-//
-//        Bundle dataEmail = new Bundle();
-//        dataEmail.putString("bEmail" , etEmail.getText().toString());
-//        profileFragment.setArguments(dataEmail);
-//        fragmentTransaction.commit();
-//    }
 
     private void signIn(){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
