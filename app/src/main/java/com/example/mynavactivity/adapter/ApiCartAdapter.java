@@ -1,7 +1,6 @@
-package com.example.mynavactivity.homecategory;
+package com.example.mynavactivity.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mynavactivity.CartActivity;
 import com.example.mynavactivity.R;
 import com.example.mynavactivity.retrofit.dto.CartDto;
 import com.example.mynavactivity.retrofit.model.ApiCart;
@@ -30,8 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class ApiCartAdapter extends RecyclerView.Adapter<ApiCartAdapter.ViewHolder>{
     String cEmail;
     //==== QTY CONTROLS =======
@@ -41,10 +37,15 @@ public class ApiCartAdapter extends RecyclerView.Adapter<ApiCartAdapter.ViewHold
     private final ApiCartAdapter.IApiCartResponseClick mCartInterface;
     private final Context context;
 
-    public ApiCartAdapter(List<ApiCart> apiCartList, IApiCartResponseClick mCartInterface, Context context) {
+    private Retrofit retrofit;
+    private iPostCartApi iPostCartApi;
+
+    public ApiCartAdapter(List<ApiCart> apiCartList, IApiCartResponseClick mCartInterface, Context context , Retrofit retrofit , iPostCartApi iPostCartApi) {
         this.apiCartList = apiCartList;
         this.mCartInterface = mCartInterface;
         this.context = context;
+        this.retrofit = retrofit;
+        this.iPostCartApi = iPostCartApi;
     }
 
     @NonNull
@@ -82,54 +83,30 @@ public class ApiCartAdapter extends RecyclerView.Adapter<ApiCartAdapter.ViewHold
                 mCartInterface.onClick(cart);
             }
         });
-        //long id, Long quantity, Double price, Long cartId, String email, Long productId, Long merchantId
         holder.deleteItem.setOnClickListener(v -> {
             CartDto cartDto = new CartDto(cart.getProductQuantity(),cart.getPrice(),cEmail,cart.getProductId());
             Retrofit retrofit = RetrofitCartBuilder.getInstance();
-            //System.out.println("Email " + cEmail);
             Call<Void> responses = retrofit.create(iPostCartApi.class).delete(cartDto);
             responses.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-//                    Toast.makeText(getContext(),"Item Deleted" , Toast.LENGTH_SHORT).show();
                     if(response.isSuccessful()) {
-                        Intent intent = new Intent(context, CartActivity.class);
-                        context.startActivity(intent);
+                        Toast.makeText(context , "Deleted From Cart" , Toast.LENGTH_SHORT).show();
+                        apiCartList.remove(position);
+                        notifyItemRemoved(position);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     Log.d("OnFail",t.getMessage());
-                    //Toast.makeText(itemView.getContext(),"Item Not Deleted" , Toast.LENGTH_SHORT).show();
                 }
             });
         });
     }
 
-//    public void makedeleteApi(){
-//        //===Logged In User
-//        SharedPreferences mPreferences = getSharedPreferences("Checker",MODE_PRIVATE);
-//        cEmail = sharedPreferences.getString("value","userName");
-//        Retrofit retrofit = RetrofitCartBuilder.getInstance();
-//        Call<Void> responses = retrofit.create(iPostCartApi.class).delete(cEmail , 1L);
-//        responses.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                Toast.makeText(CartActivity.this,"Item Deleted" , Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(CartActivity.this,"Item Not Deleted" , Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
     public interface IApiCartResponseClick {
         void onClick(ApiCart apiCart);
     }
-
 
     @Override
     public int getItemCount() {

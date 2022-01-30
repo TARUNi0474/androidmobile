@@ -22,9 +22,18 @@
             app:popupTheme="@style/Theme.MyNavActivity.PopupOverlay">
 
             <ImageButton
+                android:id="@+id/btn_gbck"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/purple_500"
+                android:src="@drawable/ic_baseline_home_24"
+                android:text="Button" />
+
+            <ImageButton
                 android:id="@+id/btn_cart"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginLeft="300dp"
                 android:background="@color/purple_500"
                 android:src="@drawable/ic_cart"
                 android:text="Button" />

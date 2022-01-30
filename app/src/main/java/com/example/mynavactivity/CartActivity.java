@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mynavactivity.homecategory.ApiCartAdapter;
+import com.example.mynavactivity.adapter.ApiCartAdapter;
 import com.example.mynavactivity.retrofit.dto.CartItemDto;
 import com.example.mynavactivity.retrofit.dto.CartItemsItem;
 import com.example.mynavactivity.retrofit.model.ApiCart;
@@ -29,6 +29,7 @@ import retrofit2.Retrofit;
 
 public class CartActivity extends AppCompatActivity implements ApiCartAdapter.IApiCartResponseClick{
     String cEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,46 +41,19 @@ public class CartActivity extends AppCompatActivity implements ApiCartAdapter.IA
         });
         //===Logged In User
         SharedPreferences sharedPreferences = getSharedPreferences("myKey", Context.MODE_PRIVATE);
-        cEmail = sharedPreferences.getString("value","userName");
-
-        //localRecyclerView();
+        cEmail = sharedPreferences.getString("value", "userName");
         makeApi();
-
-//        TextView removeBtn = findViewById(R.id.remove_item);
-//        removeBtn.setOnClickListener(v -> {
-//            makedeleteApi();
-//        });
-//        removeBtn.setOnClickListener(v -> {
-//            makedeleteApi();
-//        });
     }
-
-//    public void makedeleteApi(){
-//        Retrofit retrofit = RetrofitCartBuilder.getInstance();
-//        Call<Void> responses = retrofit.create(iPostCartApi.class).delete(cEmail , 1L);
-//        responses.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                Toast.makeText(CartActivity.this,"Item Deleted" , Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(CartActivity.this,"Item Not Deleted" , Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
 
     @Override
     public void onClick(ApiCart apiCart) {
-
         Toast.makeText(this,"You clicked Item" , Toast.LENGTH_SHORT).show();
     }
 
     public void makeApi(){
         Retrofit retrofit = RetrofitCartBuilder.getInstance();
-        Call<CartItemDto> responses = retrofit.create(iPostCartApi.class).getAllItems(cEmail);
+         iPostCartApi postCartApi=retrofit.create(iPostCartApi.class);
+        Call<CartItemDto> responses = postCartApi.getAllItems(cEmail);
         responses.enqueue(new Callback<CartItemDto>() {
             @Override
             public void onResponse(Call<CartItemDto> call, Response<CartItemDto> response) {
@@ -98,7 +72,7 @@ public class CartActivity extends AppCompatActivity implements ApiCartAdapter.IA
                     apiCartList.add(new ApiCart(pId,ProductName , ProductImage , price , ProductQuantity));
                 }
                 RecyclerView recyclerView = findViewById(R.id.cart_items_recyclerview);
-                ApiCartAdapter apiCartAdapter = new ApiCartAdapter(apiCartList , CartActivity.this, getApplicationContext());
+                ApiCartAdapter apiCartAdapter = new ApiCartAdapter(apiCartList , CartActivity.this, getApplication() , retrofit , postCartApi);
                 recyclerView.setLayoutManager(new LinearLayoutManager(CartActivity.this));
                 recyclerView.setAdapter(apiCartAdapter);
                 TextView finalAmount = findViewById(R.id.total_cart_amount);
@@ -111,20 +85,4 @@ public class CartActivity extends AppCompatActivity implements ApiCartAdapter.IA
             }
         });
     }
-//
-//    public void localRecyclerView(){
-//        List<ApiCart> userDataList = new ArrayList<>();
-//        generateUserData(userDataList);
-//        RecyclerView recyclerView = findViewById(R.id.cart_items_recyclerview);
-//        ApiCartAdapter apiCartAdapter = new ApiCartAdapter(userDataList , CartActivity.this);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(apiCartAdapter);
-//    }
-
-//    private void generateUserData(List<ApiCart> userDataList) {
-//        userDataList.add(new ApiCart("HP Pavlilion 1" , "https://m.media-amazon.com/images/I/61vFO3R5UNL._SL1500_.jpg" , 194900 , 2 ));
-//        userDataList.add(new ApiCart("HP Pavlilion 2" , "https://m.media-amazon.com/images/I/61vFO3R5UNL._SL1500_.jpg" , 194900 , 2 ));
-//        userDataList.add(new ApiCart("HP Pavlilion 3" , "https://m.media-amazon.com/images/I/61vFO3R5UNL._SL1500_.jpg" , 194900 , 2 ));
-//        userDataList.add(new ApiCart("HP Pavlilion 4" , "https://m.media-amazon.com/images/I/61vFO3R5UNL._SL1500_.jpg" , 194900 , 2 ));
-//    }
 }

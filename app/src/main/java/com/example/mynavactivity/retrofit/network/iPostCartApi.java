@@ -6,10 +6,10 @@ import com.example.mynavactivity.retrofit.dto.CartItemDto;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface iPostCartApi {
@@ -22,4 +22,7 @@ public interface iPostCartApi {
 
     @HTTP(method = "DELETE" , path="/cartList/delete" , hasBody = true)
     Call<Void> delete(@Body CartDto cartDto);
+
+    @PUT("/cartList/update")
+    Call<Void> updateItem(@Body CartDto cartDto);
 }

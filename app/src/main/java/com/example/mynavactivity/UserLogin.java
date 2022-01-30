@@ -42,10 +42,6 @@ public class UserLogin extends AppCompatActivity {
     EditText etEmail,etPassword;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 100;
-//    SharedPreferences sharedPreferences = getSharedPreferences("com.example.mynavactivity", Context.MODE_PRIVATE);
-//SharedPreferences.Editor editor = sharedpreferences.edit();
-//        editor.putString("lEmail", etEmail.getText().toString());
-//        editor.apply();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,11 +81,7 @@ public class UserLogin extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // store the returned value of the dedicated function which checks
-                // whether the entered data is valid or if any fields are left blank.
                 isAllFieldsChecked = CheckAllFields();
-                // the boolean variable turns to be true then
-                // only the user must be proceed to the activity2
                 if (isAllFieldsChecked) {
                     makeApi(createLoginRequest());
 
@@ -109,8 +101,6 @@ public class UserLogin extends AppCompatActivity {
                     etPassword.setError("Password must be minimum 8 characters");
                     return false;
                 }
-
-                // after all validation return true.
                 return true;
             }
         });
@@ -158,7 +148,7 @@ public class UserLogin extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
-                Toast.makeText(UserLogin.this,"Failed To Register " + t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserLogin.this,"Failed To Register you " + t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }

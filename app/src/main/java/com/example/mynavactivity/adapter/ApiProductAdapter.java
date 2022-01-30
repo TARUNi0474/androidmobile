@@ -1,4 +1,4 @@
-package com.example.mynavactivity.homecategory;
+package com.example.mynavactivity.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

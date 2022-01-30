@@ -21,9 +21,12 @@ import com.example.mynavactivity.retrofit.network.iPostCartApi;
 import com.example.mynavactivity.retrofit.network.iPostUserApi;
 import com.example.mynavactivity.retrofit.networkmanager.RetrofitCartBuilder;
 import com.example.mynavactivity.retrofit.networkmanager.RetrofitUserBuilder;
+import com.example.mynavactivity.ui.home.HomeFragment;
 import com.google.gson.JsonElement;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,17 +36,18 @@ import retrofit2.Retrofit;
 public class Productdetails extends AppCompatActivity {
     TextView prodPrice;
     String uEmail;
-    long prodId;
+    Long prodId , merId;
     double dPrice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productdetails);
 
-        Spinner spinnerMerchants=findViewById(R.id.spinner_merchants);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Productdetails.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.merchant));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMerchants.setAdapter(myAdapter);
+        ArrayList<String> merc = new ArrayList<String>();
+        merc.add("merName1");
+        merc.add("merName2");
+        merc.add("merName3");
 
         //===Logged In User
         SharedPreferences sharedPreferences = getSharedPreferences("myKey", Context.MODE_PRIVATE);
@@ -62,6 +66,7 @@ public class Productdetails extends AppCompatActivity {
 
         String productDescription = i.getExtras().getString("prodDescription");
         String productImage = i.getExtras().getString("prodImage");
+
         prodId = i.getExtras().getLong("prodId");
         System.out.println("===========prodIdIN PD======" + prodId);
 
@@ -73,9 +78,20 @@ public class Productdetails extends AppCompatActivity {
                 .load(productImage)
                 .into(prodImage);
 
+        Spinner spinnerMerchants=findViewById(R.id.spinner_merchants);
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Productdetails.this, android.R.layout.simple_list_item_1, merc);
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMerchants.setAdapter(myAdapter);
+
         ImageButton cartBtn = findViewById(R.id.btn_cart);
         cartBtn.setOnClickListener(v -> {
             Intent intent = new Intent(Productdetails.this, CartActivity.class);
+            startActivity(intent);
+        });
+
+        ImageButton bckBtn = findViewById(R.id.btn_bck);
+        bckBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(Productdetails.this, HomePageNavActivity.class);
             startActivity(intent);
         });
 
@@ -99,7 +115,6 @@ public class Productdetails extends AppCompatActivity {
         Retrofit retrofit = RetrofitCartBuilder.getInstance();
         iPostCartApi iPostApi = retrofit.create(iPostCartApi.class);
         Call<Void> responses = iPostApi.addItem(cartDto);
-        //System.out.println("cartId" + cartDto.getCartId() + "email" + cartDto.getEmail() + "prodId" + cartDto.getProductId() + "mecrhcId" + cartDto.getMerchantId() + "quant" + cartDto.getQuantity());
         responses.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

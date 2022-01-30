@@ -14,29 +14,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mynavactivity.R;
 import com.example.mynavactivity.UserLogin;
-import com.example.mynavactivity.homecategory.ApiProductAdapter;
 import com.example.mynavactivity.retrofit.dto.UserDto;
-import com.example.mynavactivity.retrofit.model.ApiProduct;
-import com.example.mynavactivity.retrofit.model.ApiProfile;
-import com.example.mynavactivity.retrofit.model.ApiUser;
-import com.example.mynavactivity.retrofit.network.iPostProductApi;
 import com.example.mynavactivity.retrofit.network.iPostUserApi;
-import com.example.mynavactivity.retrofit.networkmanager.RetrofitProductBuilder;
 import com.example.mynavactivity.retrofit.networkmanager.RetrofitUserBuilder;
-import com.example.mynavactivity.ui.home.HomeFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

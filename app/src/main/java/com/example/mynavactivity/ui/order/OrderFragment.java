@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynavactivity.R;
-import com.example.mynavactivity.homecategory.ApiOrderAdapter;
+import com.example.mynavactivity.adapter.ApiOrderAdapter;
 import com.example.mynavactivity.retrofit.model.ApiOrder;
 
 import java.util.ArrayList;

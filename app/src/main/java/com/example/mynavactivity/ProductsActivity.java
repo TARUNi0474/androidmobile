@@ -10,12 +10,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mynavactivity.homecategory.ApiProductAdapter;
+import com.example.mynavactivity.adapter.ApiProductAdapter;
 import com.example.mynavactivity.retrofit.dto.ProductIDNameDto;
 import com.example.mynavactivity.retrofit.model.ApiProduct;
 import com.example.mynavactivity.retrofit.network.iPostProductApi;
 import com.example.mynavactivity.retrofit.networkmanager.RetrofitProductBuilder;
-import com.example.mynavactivity.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +34,13 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
         intent.putExtra("prodPrice" , ((Double) apiProduct.getPrice()));
         intent.putExtra("prodDescription" , apiProduct.getProductDescription());
         intent.putExtra("prodImage" , apiProduct.getProductImage());
-        intent.putExtra("mercId" , apiProduct.getMerchantId());
-        System.out.println("merch" + apiProduct.getMerchantId());
-        System.out.println("ProductName===== " + apiProduct.getProductName());
+        System.out.println("====ProductName=== " + apiProduct.getProductName());
         for(int i = 0 ; i < productIDNameDtoList.size() ; i++){
             if(productIDNameDtoList.get(i).getProductName().equals(apiProduct.getProductName())){
                 intent.putExtra("prodId" , productIDNameDtoList.get(i).getProductId());
                 System.out.println("Name : " + productIDNameDtoList.get(i).getProductName() + " ProductId : " + productIDNameDtoList.get(i).getProductId());
             }
-            //System.out.println("ProdId : "  + productIDNameDtoList.get(i).getProductId() + "ProdName : " + productIDNameDtoList.get(i).getProductName());
         }
-
         startActivity(intent);
     }
 
@@ -59,18 +54,14 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
             startActivity(intent);
         });
 
-        //localRecyclerView();
+        ImageButton bckBtn = findViewById(R.id.btn_gbck);
+        bckBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ProductsActivity.this, HomePageNavActivity.class);
+            startActivity(intent);
+        });
+
         makeApi();
     }
-
-//    public void localRecyclerView(){
-//        List<ApiProduct> userDataList = new ArrayList<>();
-//        generateUserData(userDataList);
-//        RecyclerView recyclerView = findViewById(R.id.recyclerCatView);
-//        ApiProductAdapter apiProductAdapter = new ApiProductAdapter(userDataList , ProductsActivity.this);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(apiProductAdapter);
-//    }
 
     public void makeApi(){
         Retrofit retrofit = RetrofitProductBuilder.getInstance();
@@ -90,12 +81,12 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
                     String productImage = response.body().get(i).getProductImage();
                     String productName = response.body().get(i).getProductName();
                     Double price = response.body().get(i).getPrice();
-                    long proId = response.body().get(i).getProductId();
+                    Long proId = response.body().get(i).getProductId();
                     String productDescription = response.body().get(i).getProductDescription();
 //                    System.out.println("===========prodIdPAA======" + response.body().get(i).getProductId());
                     System.out.println("Price PA "+response.body().get(i).getPrice() + " Name PA " + response.body().get(i).getProductName());
                     apiProductArrayList.add(new ApiProduct(productImage,productName,price,productDescription));
-                    productIDNameDtoList.add(new ProductIDNameDto(proId , productName));
+                    productIDNameDtoList.add(new ProductIDNameDto(proId , productName ));
                 }
                 RecyclerView recyclerView = findViewById(R.id.recyclerCatView);
                 ApiProductAdapter apiProductAdapter = new ApiProductAdapter(apiProductArrayList , ProductsActivity.this);
@@ -109,19 +100,4 @@ public class ProductsActivity extends AppCompatActivity implements ApiProductAda
             }
         });
     }
-
-
-  //  private void generateUserData(List<ApiProduct> userDataList) {
-//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-//        userDataList.add(new ApiProduct("https://media.istockphoto.com/photos/modern-laptop-with-empty-screen-on-white-background-mockup-design-picture-id1182241805?k=20&m=1182241805&s=612x612&w=0&h=NHoUPJJBdxsCsZOjOUIUzNZxxoDZrRVOJWIJRMjKM1E=" , "Lenovo Chromebook" , 209989 ));
-//        userDataList.add(new ApiProduct("https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80" , "Lenovo Chromebook" , 20990 ));
-
-   // }
 }
